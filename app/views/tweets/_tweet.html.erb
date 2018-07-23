@@ -1,0 +1,6 @@
+<div class="well">
+  <strong><%= link_to tweet.user.username, show_user_path(id: tweet.user_id) %></strong> says...
+  <p>
+    <%= tweet.message.html_safe %>
+  </p>
+</div>
