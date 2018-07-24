@@ -1,0 +1,13 @@
+<div class="col-md-4">
+  <div class="well">
+
+    <h3><%= link_to user.username, show_user_path(id: user.id) %></h3>
+    <h4><%= user.name %></h4>
+    <p>
+      Location: <%= user.location %>
+    </p>
+
+    <%= render 'tweets/tweet', tweet: user.tweets.last %>
+
+  </div>
+</div>

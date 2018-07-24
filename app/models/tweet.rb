@@ -8,17 +8,17 @@ class Tweet < ApplicationRecord
   validates :message, length: { maximum: 210,
                                 too_long: 'Tweets are limited to 210 characters max'
                               }, on: :create
-
   # callbacks
   before_validation :link_check, on: :create
   after_validation :apply_link, on: :create
 
+  URL_PATTERN = /http(s)?:\/\/.*/
 
   private
 
   def apply_link
     arr = self.message.split
-    index = arr.map { |x| x.include? "http://" }.index(true)
+    index = arr.map { |x| x.match? URL_PATTERN }.index(true)
 
     if index
       url = arr[index]
@@ -30,7 +30,7 @@ class Tweet < ApplicationRecord
 
   def link_check
     check = false
-    if self.message.include?('http://') || self.message.include('https://')
+    if self.message.include?('http://') || self.message.include?('https://')
       check = true
     end
 
